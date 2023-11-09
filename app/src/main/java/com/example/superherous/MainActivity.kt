@@ -1,7 +1,6 @@
-import androidx.annotation.StringRes
-import com.example.superherous.R
 
-tackage com.example.superherous
+
+package com.example.superherous
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -25,6 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.superherous.data.heros
 import com.example.superherous.data.Hero
 import com.example.superherous.ui.theme.SuperherousTheme
+import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.res.stringResource
+import com.example.superherous.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,8 +65,9 @@ fun HeroItem(
             .fillMaxWidth()
             .padding(dimensionResource(R.dimen.padding_small))
     ) {
+
+        HeroInformation(hero.name)
         HeroIcon(hero.imageResourceId)
-        HeroInformation(hero.name, hero.description)
     }
 }
 
@@ -84,4 +89,19 @@ fun HeroIcon(
 fun HeroInformation(
     @StringRes heroName: Int,
     modifier: Modifier = Modifier
-){ }
+){
+    Column(modifier = modifier){
+        Text(
+            text = stringResource(heroName),
+            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+        )
+    }
+}
+@Preview
+@Composable
+fun Superherous(){
+    SuperherousTheme(darkTheme = false) {
+        SuperApp()
+
+    }
+}

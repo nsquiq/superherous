@@ -11,6 +11,5 @@ data class Hero(
     @DrawableRes val imageResourceId : Int,
 )
 val heros = listOf(
-    Hero(
-        R.string.hero1,R.string.description1,R.drawable.android_superhero1
-    ))
+    Hero(R.string.hero1,R.string.description1,R.drawable.android_superhero1),
+    Hero(R.string.hero2,R.string.description2,R.drawable.android_superhero2))
