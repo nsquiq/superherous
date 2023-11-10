@@ -27,6 +27,7 @@ import com.example.superherous.ui.theme.SuperherousTheme
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,7 +47,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+
                 ) {
                     SuperApp()
                 }
@@ -68,7 +69,8 @@ fun HeroItem(
     hero:Hero,
     modifier: Modifier = Modifier
 ) {
-    Box() {
+    Box(modifier = modifier
+        .fillMaxWidth()) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -76,7 +78,8 @@ fun HeroItem(
         ) {
 
             HeroInformation(hero.name, hero.description)
-            HeroIcon(hero.imageResourceId)
+            Spacer(Modifier.width(16.dp))
+           HeroIcon(hero.imageResourceId)
         }
     }
 }
@@ -85,12 +88,7 @@ fun HeroIcon(
     @DrawableRes heroIcon: Int,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = Modifier
-            .size(72.dp)
-            .clip(RoundedCornerShape(8.dp))
 
-    ) {
         Image(
             modifier = modifier
                 .size(dimensionResource(R.dimen.image_size))
@@ -100,7 +98,7 @@ fun HeroIcon(
             alignment = Alignment.TopCenter,
             contentScale = ContentScale.FillWidth
         )
-    }
+
 }
 @Composable
 fun HeroInformation(
@@ -116,15 +114,23 @@ fun HeroInformation(
         Text(
             text = stringResource(heroDes),
             modifier = modifier
-                .width(200.dp)
+                .width(300.dp)
         )
     }
 }
 @Preview
 @Composable
-fun Superherous(){
+fun SuperherousPreview(){
     SuperherousTheme(darkTheme = false) {
         SuperApp()
 
+
+    }
+}
+@Preview
+@Composable
+fun SuperherousDarkThemePreview() {
+    SuperherousTheme(darkTheme = true) {
+        SuperApp()
     }
 }
