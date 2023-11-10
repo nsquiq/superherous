@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -60,7 +61,8 @@ class MainActivity : ComponentActivity() {
 fun SuperApp(){
     LazyColumn{
         items(heros){
-            HeroItem(hero = it)
+            HeroItem(hero = it,
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_small)))
         }
     }
 }
@@ -69,17 +71,20 @@ fun HeroItem(
     hero:Hero,
     modifier: Modifier = Modifier
 ) {
+    Card(modifier = modifier){
     Box(modifier = modifier
         .fillMaxWidth()) {
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(dimensionResource(R.dimen.padding_small))
-        ) {
 
-            HeroInformation(hero.name, hero.description)
-            Spacer(Modifier.width(16.dp))
-           HeroIcon(hero.imageResourceId)
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_small))
+            ) {
+
+                HeroInformation(hero.name, hero.description)
+                Spacer(Modifier.width(16.dp))
+                HeroIcon(hero.imageResourceId)
+            }
         }
     }
 }
