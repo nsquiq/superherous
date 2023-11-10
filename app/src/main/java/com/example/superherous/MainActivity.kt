@@ -25,9 +25,17 @@ import com.example.superherous.data.heros
 import com.example.superherous.data.Hero
 import com.example.superherous.ui.theme.SuperherousTheme
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.example.superherous.R
 
 class MainActivity : ComponentActivity() {
@@ -60,40 +68,55 @@ fun HeroItem(
     hero:Hero,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(dimensionResource(R.dimen.padding_small))
-    ) {
+    Box() {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(R.dimen.padding_small))
+        ) {
 
-        HeroInformation(hero.name)
-        HeroIcon(hero.imageResourceId)
+            HeroInformation(hero.name, hero.description)
+            HeroIcon(hero.imageResourceId)
+        }
     }
 }
-
 @Composable
 fun HeroIcon(
     @DrawableRes heroIcon: Int,
     modifier: Modifier = Modifier
-){
-    Image(
-        modifier = modifier
-            .size(dimensionResource(R.dimen.image_size))
-            .padding(dimensionResource(R.dimen.padding_small)),
-        painter = painterResource(heroIcon),
-        contentDescription = null
-    )
-}
+) {
+    Box(
+        modifier = Modifier
+            .size(72.dp)
+            .clip(RoundedCornerShape(8.dp))
 
+    ) {
+        Image(
+            modifier = modifier
+                .size(dimensionResource(R.dimen.image_size))
+                .padding(dimensionResource(R.dimen.padding_small)),
+                    painter = painterResource(heroIcon),
+            contentDescription = null,
+            alignment = Alignment.TopCenter,
+            contentScale = ContentScale.FillWidth
+        )
+    }
+}
 @Composable
 fun HeroInformation(
     @StringRes heroName: Int,
+    @StringRes heroDes:  Int,
     modifier: Modifier = Modifier
 ){
     Column(modifier = modifier){
         Text(
             text = stringResource(heroName),
             modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+        )
+        Text(
+            text = stringResource(heroDes),
+            modifier = modifier
+                .width(200.dp)
         )
     }
 }
